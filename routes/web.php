@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'NetSuiteController@searchVendorBill');
 Route::get('/netsuite/search', 'NetSuiteController@searchVendorBill');
 Route::get('/ap_voucher_print/{id}', 'NetSuiteController@print_voucher');
 Route::post('/new_ap_voucher/{id}', 'NetSuiteController@new_ap');
