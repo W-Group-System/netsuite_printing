@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group mt-3">
-                <label for="bmo_received_date"><strong>BMO Received Date</strong></label>
+                <label for="bmo_received_date"><strong>Front Office Received Date</strong></label>
                 <input
                     type="date"
                     class="form-control"

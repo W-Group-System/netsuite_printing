@@ -15,10 +15,11 @@
 
         .hdr { text-align: center; margin-bottom: 8px; }
         .hdr-img img { 
+            margin-top: 150px;
             width: 20%;
             height: 4%;
         }
-        .hdr-sub   { font-size: 15px; letter-spacing: 2px; margin-top: 1px; font-weight: bold}
+        .hdr-sub   { font-size: 15px; letter-spacing: 2px; margin-top: 50px; font-weight: bold}
 
         .lbl  { font-size: 9px;  display: block; line-height: 1.3; }
         .ref-row .val  { font-size: 11px; min-height: 14px; display: block; margin-top: 1px; text-align:center; font-weight: bold;}
@@ -54,6 +55,11 @@
             height: 120px;
             border-top: none;
             border-bottom: none;
+        }
+        .amount-value {
+            font-size: 18px;
+            text-align: center;
+            margin-top: 30px; 
         }
 
         /* table.grn-entry td, table.grn-entry th {
@@ -155,7 +161,7 @@
 
     <div class="hdr">
         <div class="hdr-img">
-            <img src="{{ asset('images/WBGC.png') }}" alt="">
+            {{-- <img src="{{ asset('images/WBGC.png') }}" alt=""> --}}
         </div>
         <div class="hdr-sub">ACCOUNTS PAYABLE VOUCHER</div>
     </div>
@@ -246,8 +252,10 @@
                 <span class="val">{{ $details['vendorBill']['memo'] ?? '' }}</span>
             </td>
             <td colspan="2">
-                <span class="lbl">AMOUNT:</span>
-                <span class="val">{{ number_format($details['vendorBill']['userTotal'],2) ?? '' }}</span>
+                <div class="lbl">AMOUNT:</div>
+                <div class="val amount-value">
+                    {{ number_format($details['vendorBill']['userTotal'], 2) }}
+                </div>
             </td>
         </tr>
 
@@ -264,41 +272,64 @@
             </tr>
             @php
                 $groupedDebit = collect($details['grnGlDebit'] ?? [])
-                    ->groupBy('acctnumber')
+                    ->groupBy(function ($item, $key) {
+                        return preg_match('/^[45]/', $item['acctnumber'])
+                            ? $item['acctnumber'] . '_' . $key   // Don't consolidate
+                            : $item['acctnumber'];               // Consolidate
+                    })
                     ->map(function ($items) {
                         return [
                             'acctnumber' => $items->first()['acctnumber'],
                             'fullname'   => $items->first()['fullname'],
                             'debit'      => $items->sum('debit'),
                         ];
-                    });
+                    })
+                    ->values();
+
                 $groupedCredit = collect($details['grnGlCredit'] ?? [])
-                    ->groupBy('acctnumber')
+                    ->groupBy(function ($item, $key) {
+                        return preg_match('/^[45]/', $item['acctnumber'])
+                            ? $item['acctnumber'] . '_' . $key
+                            : $item['acctnumber'];
+                    })
                     ->map(function ($items) {
                         return [
                             'acctnumber' => $items->first()['acctnumber'],
                             'fullname'   => $items->first()['fullname'],
                             'credit'     => $items->sum('credit'),
                         ];
-                    });
+                    })
+                    ->values();
+
                 $groupedGlDebit = collect($details['glDebit'] ?? [])
-                    ->groupBy('acctnumber')
+                    ->groupBy(function ($item, $key) {
+                        return preg_match('/^[45]/', $item['acctnumber'])
+                            ? $item['acctnumber'] . '_' . $key
+                            : $item['acctnumber'];
+                    })
                     ->map(function ($items) {
                         return [
                             'acctnumber' => $items->first()['acctnumber'],
                             'fullname'   => $items->first()['fullname'],
-                            'debit'     => $items->sum('debit'),
+                            'debit'      => $items->sum('debit'),
                         ];
-                    });
+                    })
+                    ->values();
+
                 $groupedGlCredit = collect($details['glCredit'] ?? [])
-                    ->groupBy('acctnumber')
+                    ->groupBy(function ($item, $key) {
+                        return preg_match('/^[45]/', $item['acctnumber'])
+                            ? $item['acctnumber'] . '_' . $key
+                            : $item['acctnumber'];
+                    })
                     ->map(function ($items) {
                         return [
                             'acctnumber' => $items->first()['acctnumber'],
                             'fullname'   => $items->first()['fullname'],
                             'credit'     => $items->sum('credit'),
                         ];
-                    });
+                    })
+                    ->values();
             @endphp
             @if($groupedDebit->count())
                 @foreach($groupedDebit as $grnGld)
@@ -427,9 +458,9 @@
                 <span class="val">{{ optional($details['vendorBill']['dueDate']) ? date('m-d-Y', strtotime($details['vendorBill']['dueDate'])) : '' }}</span>
             </td>
             <td>
-                <span style="font-family: DejaVu Sans, sans-serif; display: block; margin-top: 1px; text-align:left;">
-                    {{-- RUSH {{ !empty($details['vendorBill']['custbody37']) ? '■' : '☐' }}  --}}
-                    RUSH {{ !empty( optional($details['apVoucher'])->rush) ? '■' : '☐' }}
+                <span>RUSH</span>
+                <span style="font-family: DejaVu Sans, sans-serif; font-size:13px;  vertical-align:middle;">
+                    {{ !empty(optional($details['apVoucher'])->rush) ? '■' : '☐' }}
                 </span>
             </td>
         </tr>
