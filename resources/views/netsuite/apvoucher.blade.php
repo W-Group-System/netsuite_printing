@@ -205,9 +205,20 @@
                 <span class="lbl">PO NUMBER:</span>
                 <span class="val">{{ $details['purchaseOrders'][0]['transactionNumber'] ?? '' }}</span>
             </td>
+            @php
+                $memo = $details['vendorBill']['memo'] ?? '';
+
+                $grnNumbers = array_unique(array_filter(array_column($details['itemReceipts'] ?? [], 'transactionnumber')));
+
+                if (empty($details['grnGlDebit']) || empty($details['grnGlCredit'])) {
+                    if (preg_match('/GRN#\s*(\d+)/i', $memo, $matches)) {
+                        $grnNumbers = [$matches[1]];
+                    }
+                }
+            @endphp
             <td colspan="1">
                 <span class="lbl">GRN NUMBER</span>
-                <span class="val">{{ implode(' / ', array_unique(array_filter(array_column($details['itemReceipts'] ?? [], 'transactionnumber')))) }}</span>
+                <span class="val">{{ implode(' / ', $grnNumbers) }}</span>
             </td>
             <td colspan="1">
                 <span class="lbl">TRANSACTION NUMBER:</span>
