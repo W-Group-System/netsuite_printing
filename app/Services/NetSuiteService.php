@@ -110,7 +110,6 @@ class NetSuiteService
         return json_decode($response->getBody(), true);
     }
 
-    // STEP 1: search vendor bill
     public function searchVendorBill($tranid)
     {
         // $url = $this->client->getConfig('base_uri') . '/services/rest/query/v1/suiteql';
@@ -140,7 +139,6 @@ class NetSuiteService
         return json_decode($response->getBody(), true);
     }
 
-    // STEP 2: get full vendor bill
     public function getVendorBillRecord($id)
     {
         $url = $this->client->getConfig('base_uri') . "/services/rest/record/v1/vendorBill/$id";

@@ -49,13 +49,7 @@ class NetSuiteService
             'oauth_signature="' . rawurlencode($signature) . '"';
     }
 
-    /**
-     * Run a SuiteQL query and automatically follow pagination
-     * (NetSuite defaults to 1000 rows per page and returns
-     * "hasMore" + a "next" link when more pages exist).
-     *
-     * Returns the full merged list of items across all pages.
-     */
+
     private function runSuiteQL($sql)
     {
         $path = '/services/rest/query/v1/suiteql';
@@ -76,7 +70,6 @@ class NetSuiteService
         $result = json_decode($response->getBody(), true);
         $items  = $result['items'] ?? [];
 
-        // Keep following the "next" link until hasMore is false
         while (!empty($result['hasMore'])) {
             $nextLink = null;
 
@@ -130,7 +123,6 @@ class NetSuiteService
         return $this->runSuiteQL($sql);
     }
 
-    // STEP 1: search vendor bill
     public function searchVendorBill($tranid)
     {
         $sql = "
@@ -146,7 +138,6 @@ class NetSuiteService
         return $this->runSuiteQL($sql);
     }
 
-    // STEP 2: get full vendor bill
     public function getVendorBillRecord($id)
     {
         $url = $this->client->getConfig('base_uri') . "/services/rest/record/v1/vendorBill/$id";
@@ -186,7 +177,6 @@ class NetSuiteService
         $result = json_decode($response->getBody(), true);
         $items  = $result['items'] ?? [];
 
-        // Record sublists can also be paged via "hasMore" + "next" link
         while (!empty($result['hasMore'])) {
             $nextLink = null;
 
