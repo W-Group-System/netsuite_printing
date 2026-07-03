@@ -6,7 +6,7 @@
 <div class="modal fade" id="edit_ap{{ $result['id'] }}" tabindex="-1">
     <form method="POST"
           action="{{ url('update_ap_voucher/'.$apVoucher->id) }}"
-          autocomplete="off">
+          autocomplete="off" onsubmit="show()">
         @csrf
         @method('PUT')
 
@@ -57,6 +57,26 @@
                                 <strong>Rush</strong>
                             </label>
                         </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="checked_by"><strong>Checked by</strong></label>
+                        <select class="form-control js-example-basic-single" name="checked_by" id="checked_by{{ $result['id'] }}" style="width: 100%" required>
+                        <option value="" disabled selected>Select Checked by</option>
+                        @foreach($checkers as $checker)
+                            <option value="{{ $checker->id }}" {{ optional($apVoucher->checkers)->id == $checker->id ? 'selected' : '' }}>
+                                {{ $checker->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="checked_by"><strong>Approved by</strong></label>
+                        <select class="form-control js-example-basic-single" name="approved_by" id="approved_by{{ $result['id'] }}" style="width: 100%" required>
+                        <option value="" disabled selected>Select Approved by</option>
+                        @foreach($approvers as $approver)
+                            <option value="{{ $approver->id }}" {{ optional($apVoucher->approvers)->id == $approver->id ? 'selected' : '' }}>{{ $approver->name }}</option>
+                        @endforeach
+                        </select>
                     </div>
 
                 </div>

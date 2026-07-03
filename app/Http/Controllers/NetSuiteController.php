@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ApVoucher;
+use App\Name;
 use Illuminate\Http\Request;
 use App\Services\NetSuiteService;
 use PDF;
@@ -32,6 +33,14 @@ class NetSuiteController extends Controller
     
     public function searchVendorBill(Request $request)
     {
+        $checkers = Name::where(function ($query) {
+            $query->where('role', 'Checker')
+                ->orWhereNull('role');
+        })->get();
+        $approvers = Name::where(function ($query) {
+            $query->where('role', 'Approver')
+                ->orWhereNull('role');
+        })->get();
         $results = [];
         if ($request->filled('tranid')) {
             $tranid = $request->tranid;
@@ -51,6 +60,8 @@ class NetSuiteController extends Controller
         return view('netsuite.result', [
             'results' => $results,
             'apVoucherData' => $apVoucherData,
+            'checkers' => $checkers,
+            'approvers' => $approvers,
         ]);
     }
 
@@ -170,6 +181,8 @@ class NetSuiteController extends Controller
         $save_as_new->bill_id = $id;
         $save_as_new->invoice_billing_date = $request->invoice_billing_date;
         $save_as_new->bmo_received_date = $request->bmo_received_date; 
+        $save_as_new->checked_by = $request->checked_by; 
+        $save_as_new->approved_by = $request->approved_by; 
         $save_as_new->rush = $request->rush;
         $save_as_new->save();
         return redirect()->back()->with('success', 'AP Voucher saved successfully.');
@@ -181,6 +194,8 @@ class NetSuiteController extends Controller
 
         $apVoucher->invoice_billing_date = $request->invoice_billing_date;
         $apVoucher->bmo_received_date = $request->bmo_received_date;
+        $apVoucher->checked_by = $request->checked_by;
+        $apVoucher->approved_by = $request->approved_by;
         $apVoucher->rush = $request->has('rush');
 
         $apVoucher->save();

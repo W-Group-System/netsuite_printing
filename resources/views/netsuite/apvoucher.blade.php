@@ -253,7 +253,11 @@
             </td>
             <td >
                 <span class="lbl">EWT AMOUNT:</span>
-                <span class="val">{{ number_format($details['withholdingTaxAmount'],2) ?? '' }}</span>
+                <span class="val">
+                    {{ is_numeric($details['withholdingTaxAmount']) 
+                        ? number_format((float) $details['withholdingTaxAmount'], 2) 
+                        : '' }}
+                </span>
             </td>
         </tr>
 
@@ -483,13 +487,13 @@
             </td>
             <td style="width:20%">
                 <span class="lbl">Checked by:</span>
-                <span class="val">RC</span>
-                <div class="sig-line">AP OFFICER</div>
+                <span class="val">{{ optional(optional($details['apVoucher'])->checkers)->name }}</span>
+                <div class="sig-line">{{ optional(optional($details['apVoucher'])->checkers)->position }}</div>
             </td>
             <td style="width:20%">
                 <span class="lbl">Approved by:</span>
-                <span class="val">MPG</span>
-                <div class="sig-line">AP SUPERVISOR</div>
+                <span class="val">{{ optional(optional($details['apVoucher'])->approvers)->name }}</span>
+                <div class="sig-line">{{ optional(optional($details['apVoucher'])->approvers)->position }}</div>
             </td>
             <td style="width:20%">
                 <span class="lbl">Date Transferred to TMD:</span>

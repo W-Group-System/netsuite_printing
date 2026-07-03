@@ -29,9 +29,9 @@
         width: 100%;
         height: 100%;
         z-index: 9999;
-        background: url("{{ asset('img/loading.gif')}}") 50% 50% no-repeat white ;
+        background: url("{{ asset('images/WBGC.png')}}") 50% 50% no-repeat white ;
         opacity: .8;
-        background-size:120px 120px;
+        background-size:10vh 5vh;
     }
     
     .card-header-radius {
@@ -137,7 +137,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="{{asset('img/wgroup.png')}}" alt="">
+                    <img src="{{asset('images/WBGC.png')}}" alt="">
                 </div>
             </div>
         </div>

@@ -52,6 +52,11 @@
                                   data-target="#edit_ap{{ $result['id'] }}">
                               <i class="ti-pencil-alt"></i>
                           </button>
+                          <button type="button"
+                              class="btn btn-md btn-icon btn-danger"
+                              onclick="window.open('{{ url('ap_voucher_print', $result['id']) }}', '_blank')">
+                              <i class="ti-printer"></i>
+                          </button>
 
                           @include('netsuite.edit_ap')
                       @else
@@ -65,11 +70,7 @@
 
                           @include('netsuite.new_ap')
                       @endif
-                      <button type="button"
-                              class="btn btn-md btn-icon btn-danger"
-                              onclick="window.open('{{ url('ap_voucher_print', $result['id']) }}', '_blank')">
-                          <i class="ti-printer"></i>
-                      </button>
+                      
                       
                     </td>
                     <td>{{ $result['id'] ?? '' }}</td>

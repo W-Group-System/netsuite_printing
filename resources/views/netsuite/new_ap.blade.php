@@ -1,6 +1,6 @@
 @if ( $result)
 <div class="modal fade" id="create_ap{{ $result['id'] }}" tabindex="-1" aria-labelledby="ap voucher" aria-hidden="true">
-    <form method="POST" id="apvoucheradd" action="{{ url('new_ap_voucher/' .$result['id']) }}" autocomplete="off">
+    <form method="POST" id="apvoucheradd" action="{{ url('new_ap_voucher/' .$result['id']) }}" autocomplete="off" onsubmit="show()">
       @csrf
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -41,6 +41,25 @@
                         <strong>Rush</strong>
                     </label>
                 </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="checked_by"><strong>Checked by</strong></label>
+                <select class="form-control js-example-basic-single" name="checked_by" id="checked_by{{ $result['id'] }}" style="width: 100%" required>
+                  <option value="" disabled selected>Select Checked by</option>
+                  @foreach($checkers as $checker)
+                      <option value="{{ $checker->id }}">{{ $checker->name }}</option>
+                  @endforeach
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="checked_by"><strong>Approved by</strong></label>
+                <select class="form-control js-example-basic-single" name="approved_by" id="approved_by{{ $result['id'] }}" style="width: 100%" required>
+                  <option value="" disabled selected>Select Approved by</option>
+                  @foreach($approvers as $approver)
+                      <option value="{{ $approver->id }}">{{ $approver->name }}</option>
+                  @endforeach
+                </select>
             </div>
         </div>
         <div class="modal-footer">
