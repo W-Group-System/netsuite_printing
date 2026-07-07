@@ -89,7 +89,7 @@ class NetSuiteService
 
         $sql = "
             SELECT
-                SUM(ABS(custcol_4601_witaxamount)) AS withholdingtax
+                ABS(SUM(custcol_4601_witaxamount)) AS withholdingtax
             FROM transactionLine
             WHERE transaction = $id
             AND mainline = 'F'
@@ -295,6 +295,145 @@ class NetSuiteService
             ],
             'json' => [
                 'q' => $sql
+            ]
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    public function searchServiceInvoice($tranid = null, $from = null, $to = null)
+    {
+        $path = '/services/rest/query/v1/suiteql';
+        $url = $this->client->getConfig('base_uri') . $path;
+
+        $where = [
+            "t.type = 'CustInvc'",
+            "tl.mainline = 'T'",
+            "t.subsidiary IN (1,11,50,8,2, 7)",
+            "tl.class IN (1,2,5,6,7)"
+        ];
+        // $where[] = "tl.taxitem IN (1,2,3,4,5,6,7,8,9)";
+        // $where[] = "t.custbody_soa_type IN (1,2,3,4)";
+        // $where[] = "tl.item IN (100,101,102,103)";
+        $where[] = "t.status IN ('A','B','D','E')";
+
+
+        if (!empty($tranid)) {
+            $tranid = str_replace("'", "''", $tranid);
+
+            $where[] = "(
+                t.tranid LIKE '%{$tranid}%'
+                OR t.transactionNumber LIKE '%{$tranid}%'
+            )";
+        }
+
+        if (!empty($from)) {
+            $where[] = "t.trandate >= TO_DATE('{$from}','YYYY-MM-DD')";
+        }
+
+        if (!empty($to)) {
+            $where[] = "t.trandate <= TO_DATE('{$to}','YYYY-MM-DD')";
+        }
+        $sql = "
+            SELECT DISTINCT
+                t.id,
+                t.tranid,
+                t.transactionnumber,
+                t.trandate,
+                BUILTIN.DF(t.entity) AS customer,
+                BUILTIN.DF(t.subsidiary) AS subsidiary,
+                BUILTIN.DF(t.status) AS status,
+                BUILTIN.DF(t.type) AS type,
+                t.memo
+            FROM transaction t
+            INNER JOIN transactionline tl
+                ON tl.transaction = t.id
+            WHERE " . implode(" AND ", $where) . "
+            ORDER BY t.trandate DESC
+        ";
+        
+        // $sql = "
+        //     SELECT DISTINCT
+        //         t.id,
+        //         t.tranid,
+        //         t.trandate,
+        //         t.transactionNumber
+        //     FROM transaction t
+        //     JOIN transactionLine tl
+        //         ON tl.transaction = t.id
+        //     WHERE " . implode(" AND ", $where) . "
+        //     ORDER BY t.trandate DESC
+        // ";
+        // dd($sql);
+
+        $response = $this->client->post($path, [
+            'headers' => [
+                'Authorization' => $this->buildOAuthHeader('POST', $url),
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json',
+                'Prefer'        => 'transient',
+            ],
+            'json' => [
+                'q' => $sql
+            ]
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    public function getServiceInvoiceRecord($id)
+    {
+        $path = "/services/rest/record/v1/invoice/$id";
+        $url = $this->client->getConfig('base_uri') . $path;
+
+        $response = $this->client->get($path, [
+            'headers' => [
+                'Authorization' => $this->buildOAuthHeader('GET', $url),
+                'Accept' => 'application/json',
+            ]
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    public function getCustomerRecord($customerId)
+    {
+        $path = "/services/rest/record/v1/customer/{$customerId}";
+        $url = $this->client->getConfig('base_uri') . $path;
+
+        $response = $this->client->request('GET', $url, [
+            'headers' => [
+                'Authorization' => $this->buildOAuthHeader('GET', $url),
+                'Accept' => 'application/json',
+            ]
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    public function getServiceInvoiceItems($invoiceId)
+    {
+        $path = "/services/rest/record/v1/invoice/{$invoiceId}/item";
+        $url = $this->client->getConfig('base_uri') . $path;
+
+        $response = $this->client->get($path, [
+            'headers' => [
+                'Authorization' => $this->buildOAuthHeader('GET', $url),
+                'Accept' => 'application/json',
+            ]
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+    public function getServiceInvoiceItem($invoiceId, $lineId)
+    {
+        $path = "/services/rest/record/v1/invoice/{$invoiceId}/item/{$lineId}";
+        $url = $this->client->getConfig('base_uri') . $path;
+
+        $response = $this->client->get($path, [
+            'headers' => [
+                'Authorization' => $this->buildOAuthHeader('GET', $url),
+                'Accept' => 'application/json',
             ]
         ]);
 
