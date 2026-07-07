@@ -203,7 +203,7 @@
             </td>
             <td colspan="1">
                 <span class="lbl">PO NUMBER:</span>
-                <span class="val">{{ $details['purchaseOrders'][0]['transactionNumber'] ?? '' }}</span>
+                <span class="val">{{ $details['purchaseOrders'][0]['transactionNumber'] ?? 'N/A' }}</span>
             </td>
             @php
                 $memo = $details['vendorBill']['memo'] ?? '';
@@ -289,7 +289,7 @@
             @endphp
             <td colspan="1">
                 <span class="lbl">GRN NUMBER</span>
-                <span class="val">{{ implode(' / ', $grnNumbers) }}</span>
+                <span class="val">{{ !empty($grnNumbers ?? []) ? implode(' / ', $grnNumbers) : 'N/A' }}</span>
             </td>
             <td colspan="1">
                 <span class="lbl">TRANSACTION NUMBER:</span>
