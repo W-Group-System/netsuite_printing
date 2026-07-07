@@ -216,81 +216,12 @@
                     }
                 }
             @endphp
-            <td colspan="1">
-                <span class="lbl">GRN NUMBER</span>
-                <span class="val">{{ implode(' / ', $grnNumbers) }}</span>
-            </td>
-            <td colspan="1">
-                <span class="lbl">TRANSACTION NUMBER:</span>
-                <span class="val">{{ $details['vendorBill']['transactionNumber'] ?? '' }}</span>
-            </td>
-            <td colspan="1">
-                <span class="lbl">DEFECTIVE:</span>
-
-                <span style="font-family: DejaVu Sans, sans-serif; display: block; margin-top: 1px; text-align:center;">
-                    {{ !empty($details['vendorBill']['custbody37']) ? '■' : '☐' }} YES
-                </span>
-
-                <span style="font-family: DejaVu Sans, sans-serif; display: block; margin-top: 1px; text-align:center;">
-                    {{ empty($details['vendorBill']['custbody37']) ? '■' : '☐' }} NO
-                </span>
-            </td>
-            <td colspan="1">
-                <span class="lbl">DOCUMENTS NEEDED:</span>
-                <span class="val">{{ $voucher->documents_needed ?? '' }}</span>
-            </td>
-            
-        </tr>
-
-        <tr>
-            <td colspan="4" style="height:40px">
-                <span class="lbl">VENDOR:</span>
-                <span class="val">{{ $details['vendorBill']['entity']['refName'] ?? '' }}</span>
-            </td>
-            <td>
-                <span class="lbl">EWT %:</span>
-                <span class="val">{{ $voucher->ewt_percent ?? '' }}</span>
-            </td>
-            <td >
-                <span class="lbl">EWT AMOUNT:</span>
-                <span class="val">
-                    {{ is_numeric($details['withholdingTaxAmount']) 
-                        ? number_format((float) $details['withholdingTaxAmount'], 2) 
-                        : '' }}
-                </span>
-            </td>
-        </tr>
-
-        <tr class="body-row">
-            <td colspan="4">
-                <span class="lbl">MEMO:</span>
-                <span class="val">{{ $details['vendorBill']['memo'] ?? '' }}</span>
-            </td>
-            <td colspan="2">
-                <div class="lbl">AMOUNT:</div>
-                <div class="val amount-value">
-                    {{ number_format($details['vendorBill']['userTotal'], 2) }}
-                </div>
-            </td>
-        </tr>
-
-    </table>
-    <div style="height:210px; overflow:hidden;border:1px solid black">
-        <table class="grn-entry">
-            <tr>
-                <td style="width:64%;font-weight:bold;font-size:8px"  colspan="3">GRN ENTRY</td>
-            </tr>
-            <tr>
-                <th style="width:72%;padding-left:14px">ACCOUNT CODE</th>
-                <th style="width:14%;text-align:center">DEBIT</th>
-                <th style="width:14%;text-align:center">CREDIT</th>
-            </tr>
             @php
                 $groupedDebit = collect($details['grnGlDebit'] ?? [])
                     ->groupBy(function ($item, $key) {
                         return preg_match('/^[45]/', $item['acctnumber'])
-                            ? $item['acctnumber'] . '_' . $key   // Don't consolidate
-                            : $item['acctnumber'];               // Consolidate
+                            ? $item['acctnumber'] . '_' . $key   
+                            : $item['acctnumber'];              
                     })
                     ->map(function ($items) {
                         return [
@@ -345,7 +276,88 @@
                         ];
                     })
                     ->values();
+               $ewtAmountGLD = collect($details['glDebit'] ?? [])
+                    ->where('acctnumber', '18042')
+                    ->values();
+                $ewtAmountGLC = collect($details['glCredit'] ?? [])
+                    ->where('acctnumber', '18042')
+                    ->values();
+                $debitTotal = $ewtAmountGLD->sum('debit');
+                $creditTotal = $ewtAmountGLC->sum('credit');
+
+                $ewtAmount = abs($debitTotal - $creditTotal);
             @endphp
+            <td colspan="1">
+                <span class="lbl">GRN NUMBER</span>
+                <span class="val">{{ implode(' / ', $grnNumbers) }}</span>
+            </td>
+            <td colspan="1">
+                <span class="lbl">TRANSACTION NUMBER:</span>
+                <span class="val">{{ $details['vendorBill']['transactionNumber'] ?? '' }}</span>
+            </td>
+            <td colspan="1">
+                <span class="lbl">DEFECTIVE:</span>
+
+                <span style="font-family: DejaVu Sans, sans-serif; display: block; margin-top: 1px; text-align:center;">
+                    {{ !empty($details['vendorBill']['custbody37']) ? '■' : '☐' }} YES
+                </span>
+
+                <span style="font-family: DejaVu Sans, sans-serif; display: block; margin-top: 1px; text-align:center;">
+                    {{ empty($details['vendorBill']['custbody37']) ? '■' : '☐' }} NO
+                </span>
+            </td>
+            <td colspan="1">
+                <span class="lbl">DOCUMENTS NEEDED:</span>
+                <span class="val">{{ $voucher->documents_needed ?? '' }}</span>
+            </td>
+            
+        </tr>
+
+        <tr>
+            <td colspan="4" style="height:40px">
+                <span class="lbl">VENDOR:</span>
+                <span class="val">{{ $details['vendorBill']['entity']['refName'] ?? '' }}</span>
+            </td>
+            <td>
+                <span class="lbl">EWT %:</span>
+                <span class="val">{{ $voucher->ewt_percent ?? '' }}</span>
+            </td>
+            <td >
+                <span class="lbl">EWT AMOUNT:</span>
+                <span class="val">
+                    {{-- {{ is_numeric($details['withholdingTaxAmount']) 
+                        ? number_format((float) $details['withholdingTaxAmount'], 2) 
+                        : '' }} --}}
+                    {{ number_format($ewtAmount,2) }}
+                </span>
+            </td>
+        </tr>
+
+        <tr class="body-row">
+            <td colspan="4">
+                <span class="lbl">MEMO:</span>
+                <span class="val">{{ $details['vendorBill']['memo'] ?? '' }}</span>
+            </td>
+            <td colspan="2">
+                <div class="lbl">AMOUNT:</div>
+                <div class="val amount-value">
+                    {{ number_format($details['vendorBill']['userTotal'], 2) }}
+                </div>
+            </td>
+        </tr>
+
+    </table>
+    <div style="height:210px; overflow:hidden;border:1px solid black">
+        <table class="grn-entry">
+            <tr>
+                <td style="width:64%;font-weight:bold;font-size:8px"  colspan="3">GRN ENTRY</td>
+            </tr>
+            <tr>
+                <th style="width:72%;padding-left:14px">ACCOUNT CODE</th>
+                <th style="width:14%;text-align:center">DEBIT</th>
+                <th style="width:14%;text-align:center">CREDIT</th>
+            </tr>
+            
             @if($groupedDebit->count())
                 @foreach($groupedDebit as $grnGld)
                 @php
