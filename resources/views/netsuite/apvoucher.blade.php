@@ -219,7 +219,10 @@
             @php
                 $groupedDebit = collect($details['grnGlDebit'] ?? [])
                     ->groupBy(function ($item, $key) {
-                        return preg_match('/^[45]/', $item['acctnumber'])
+                        return (
+                            preg_match('/^[45]/', $item['acctnumber']) ||
+                            preg_match('/^(12050|12091)\b/', $item['acctnumber'])
+                        )
                             ? $item['acctnumber'] . '_' . $key   
                             : $item['acctnumber'];              
                     })
@@ -234,7 +237,10 @@
 
                 $groupedCredit = collect($details['grnGlCredit'] ?? [])
                     ->groupBy(function ($item, $key) {
-                        return preg_match('/^[45]/', $item['acctnumber'])
+                        return (
+                            preg_match('/^[45]/', $item['acctnumber']) ||
+                            preg_match('/^(12050|12091)\b/', $item['acctnumber'])
+                        )
                             ? $item['acctnumber'] . '_' . $key
                             : $item['acctnumber'];
                     })
@@ -249,7 +255,10 @@
 
                 $groupedGlDebit = collect($details['glDebit'] ?? [])
                     ->groupBy(function ($item, $key) {
-                        return preg_match('/^[45]/', $item['acctnumber'])
+                        return (
+                            preg_match('/^[45]/', $item['acctnumber']) ||
+                            preg_match('/^(12050|12091)\b/', $item['acctnumber'])
+                        )
                             ? $item['acctnumber'] . '_' . $key
                             : $item['acctnumber'];
                     })
@@ -264,7 +273,11 @@
 
                 $groupedGlCredit = collect($details['glCredit'] ?? [])
                     ->groupBy(function ($item, $key) {
-                        return preg_match('/^[45]/', $item['acctnumber'])
+                        // return preg_match('/^[45]/', $item['acctnumber'] || preg_match('/^(12050|12091)\b/', $item['acctnumber']))
+                        return (
+                            preg_match('/^[45]/', $item['acctnumber']) ||
+                            preg_match('/^(12050|12091)\b/', $item['acctnumber'])
+                        )
                             ? $item['acctnumber'] . '_' . $key
                             : $item['acctnumber'];
                     })
