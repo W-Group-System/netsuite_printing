@@ -226,6 +226,12 @@
                             <span class="menu-title">AP Voucher</span>
                         </a>
                     </li>
+                    <li class="nav-item" onclick="show()"> 
+                        <a class="nav-link" href="{{ url('/service_invoice') }}">
+                            <i class="ti-receipt menu-icon"></i>
+                            <span class="menu-title">Service Invoice</span>
+                        </a>
+                    </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#setup" aria-expanded="false"
                             aria-controls="setup">

@@ -309,7 +309,7 @@ class NetSuiteService
         $where = [
             "t.type = 'CustInvc'",
             "tl.mainline = 'T'",
-            "t.subsidiary IN (1,11,50,8,2, 7)",
+            // "t.subsidiary IN (1,11,50,8,2, 7)",
             "tl.class IN (1,2,5,6,7)"
         ];
         // $where[] = "tl.taxitem IN (1,2,3,4,5,6,7,8,9)";
@@ -434,6 +434,71 @@ class NetSuiteService
             'headers' => [
                 'Authorization' => $this->buildOAuthHeader('GET', $url),
                 'Accept' => 'application/json',
+            ]
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    public function searchServiceInvoiceIndex($tranid = null, $from = null, $to = null)
+    {
+        $path = '/services/rest/query/v1/suiteql';
+        $url = $this->client->getConfig('base_uri') . $path;
+
+        $where = [
+            "t.type = 'CustInvc'",
+            "tl.mainline = 'T'",
+            "tl.class IN (1,2,5,6,7)",
+            "t.status IN ('A','B','D','E')"
+        ];
+
+        if (!empty($tranid)) {
+            $tranid = str_replace("'", "''", $tranid);
+
+            $where[] = "(
+                t.tranId LIKE '%{$tranid}%'
+                OR t.transactionNumber LIKE '%{$tranid}%'
+            )";
+        }
+
+        if (!empty($from)) {
+            $where[] = "t.tranDate >= TO_DATE('{$from}','YYYY-MM-DD')";
+        }
+
+        if (!empty($to)) {
+            $where[] = "t.tranDate <= TO_DATE('{$to}','YYYY-MM-DD')";
+        }
+
+        $sql = "
+            SELECT DISTINCT
+                t.id,
+                s.name AS subsidiary,
+                BUILTIN.DF(t.status) AS status,
+                BUILTIN.DF(t.postingperiod) AS postingperiod,
+                t.transactionnumber,
+                t.otherRefNum,
+                t.tranid,
+                t.total,
+                t.trandate,
+                t.memo
+            FROM transaction t
+            INNER JOIN transactionline tl
+                ON tl.transaction = t.id
+            LEFT JOIN subsidiary s
+            ON t.subsidiary = s.id
+            WHERE " . implode(' AND ', $where) . "
+            ORDER BY t.tranDate DESC
+        ";
+        
+        $response = $this->client->post($path, [
+            'headers' => [
+                'Authorization' => $this->buildOAuthHeader('POST', $url),
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json',
+                'Prefer'        => 'transient',
+            ],
+            'json' => [
+                'q' => $sql
             ]
         ]);
 
