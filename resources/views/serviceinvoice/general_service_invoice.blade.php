@@ -159,7 +159,7 @@ body{
         </div>
         
         <!-- VATABLE SALES -->
-        <div class="abs center" style="top:485px;left:100px;width:230px;">
+        <div class="abs center" style="top:487px;left:100px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
@@ -168,7 +168,7 @@ body{
         </div>
 
         <!-- VAT -->
-        <div class="abs center" style="top:510px;left:100px;width:230px;">
+        <div class="abs center" style="top:513px;left:100px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '-' }}
             @else
@@ -269,10 +269,10 @@ body{
         </div>
 
          <div class="abs left" style="top:668px;left:100px;width:200px;">
-            @if ($details['subsidiary']['refName'] == "W Landmark Inc.")
+            @if ($details['subsidiary']['refName'] === "W Landmark Inc.")
+                {{ $details['subsidiary']['refName'] ?? '' }}
 
             @else
-                {{ $details['subsidiary']['refName'] ?? '' }}
             @endif
         </div>
         <div class="abs center" style="top:700px;left:100px;width:130px;">
