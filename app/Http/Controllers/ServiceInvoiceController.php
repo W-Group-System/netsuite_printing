@@ -86,7 +86,17 @@ class ServiceInvoiceController extends Controller
         // dd($customer);
         // dd($results);
         // dd($items);
-        $pdf = PDF::loadView('serviceinvoice.serviceinvoice', [
+
+        $refName = $customer['subsidiary']['refName'] ?? '';
+
+        if ($refName === 'W Global Realty Inc') {
+            $view = 'serviceinvoice.serviceinvoice_wgri';
+        } elseif (in_array($refName, ['Ticino Holdings Inc', 'W Offices Inc'])) {
+            $view = 'serviceinvoice.serviceinvoice';
+        } else {
+            $view = 'serviceinvoice.general_service_invoice';
+        }
+        $pdf = PDF::loadView($view, [
             'details' => $results,
             'customer' => $customer,
             'items' => $items,
