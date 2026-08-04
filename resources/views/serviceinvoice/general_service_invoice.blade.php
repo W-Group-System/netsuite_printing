@@ -94,7 +94,7 @@ body{
         {{-- ITEMS --}}
         <div class="items-container">
             @php
-                $top = 256;
+                $top = 258;
                 $vatInclusive = 0;
                 $lessAddVat = 0;
                 $netOfVat = 0;
