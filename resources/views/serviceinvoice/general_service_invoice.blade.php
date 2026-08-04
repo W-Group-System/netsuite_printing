@@ -239,7 +239,7 @@ body{
 
         {{-- EWT SUMMARY --}}
         @php
-            $ewtTop = 635;
+            $ewtTop = 645;
         @endphp
 
         @php
@@ -268,10 +268,10 @@ body{
             {{ $ewt2 != 0 ? number_format(abs($ewt2), 2) : '-' }}
         </div>
 
-         <div class="abs left" style="top:658px;left:100px;width:200px;">
+         <div class="abs left" style="top:668px;left:100px;width:200px;">
             {{ $details['subsidiary']['refName'] ?? '' }}
         </div>
-        <div class="abs center" style="top:690px;left:100px;width:130px;">
+        <div class="abs center" style="top:700px;left:100px;width:130px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
