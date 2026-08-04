@@ -94,7 +94,7 @@ body{
         {{-- ITEMS --}}
         <div class="items-container">
             @php
-                $top = 258;
+                $top = 255;
                 $vatInclusive = 0;
                 $lessAddVat = 0;
                 $netOfVat = 0;
@@ -239,7 +239,7 @@ body{
 
         {{-- EWT SUMMARY --}}
         @php
-            $ewtTop = 645;
+            $ewtTop = 650;
         @endphp
 
         @php
