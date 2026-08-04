@@ -277,7 +277,7 @@ body{
 
 
         <!-- PREPARED BY -->
-        <div class="abs left" style="top:818px;left:60px;width:250px;">
+        <div class="abs left" style="top:828px;left:60px;width:250px;">
             {{-- {{ $details['preparedBy'] ?? '' }} --}}
             @if (( $details['subsidiary']['refName'] == "W Offices Inc" ) || ( $details['subsidiary']['refName'] == "Ticino Holdings Inc" ) || ( $details['subsidiary']['refName'] == "Hyopan Land Philippines Inc" ) || ( $details['subsidiary']['refName'] == "W Global Realty Inc" ))
                 JSC / JAC
