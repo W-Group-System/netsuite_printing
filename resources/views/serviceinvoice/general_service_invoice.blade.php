@@ -94,7 +94,7 @@ body{
         {{-- ITEMS --}}
         <div class="items-container">
             @php
-                $top = 255;
+                $top = 260;
                 $vatInclusive = 0;
                 $lessAddVat = 0;
                 $netOfVat = 0;
@@ -269,7 +269,11 @@ body{
         </div>
 
          <div class="abs left" style="top:668px;left:100px;width:200px;">
-            {{ $details['subsidiary']['refName'] ?? '' }}
+            @if ($details['subsidiary']['refName'] == "W Landmark Inc.")
+
+            @else
+                {{ $details['subsidiary']['refName'] ?? '' }}
+            @endif
         </div>
         <div class="abs center" style="top:700px;left:100px;width:130px;">
             {{ $details['dueDate'] ?? '' }} 
