@@ -16,7 +16,7 @@ body{
 }
 
 .page{
-    margin-top: 5px;
+    margin-top: 2px;
     position:relative;
     width:210mm;
     height:277mm;
@@ -159,7 +159,7 @@ body{
         </div>
         
         <!-- VATABLE SALES -->
-        <div class="abs center" style="top:480px;left:100px;width:230px;">
+        <div class="abs center" style="top:490px;left:100px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
@@ -168,7 +168,7 @@ body{
         </div>
 
         <!-- VAT -->
-        <div class="abs center" style="top:505px;left:100px;width:230px;">
+        <div class="abs center" style="top:515px;left:100px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '-' }}
             @else
@@ -177,7 +177,7 @@ body{
         </div>
 
         <!-- ZERO RATED -->
-        <div class="abs center" style="top:527px;left:100px;width:230px;">
+        <div class="abs center" style="top:537px;left:100px;width:230px;">
             @if ($hasZeroRate == true)
                 {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '-' }}
             @else
@@ -186,7 +186,7 @@ body{
         </div>
 
         <!-- VAT EXEMPT -->
-        <div class="abs center" style="top:550px;left:100px;width:230px;">
+        <div class="abs center" style="top:560px;left:100px;width:230px;">
             @if ($hasVatExempt == true)
                 {{ !empty($totalAmountDue) ? number_format($totalAmountDue, 2) : '-' }}
             @else
@@ -198,17 +198,17 @@ body{
 
 
         <!-- TOTAL SALES -->
-        <div class="abs center" style="top:454px;left:640px;width:105px;">
+        <div class="abs center" style="top:464px;left:640px;width:105px;">
             {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '' }}
         </div>
 
         <!-- LESS VAT -->
-        <div class="abs center" style="top:480px;left:640px;width:105px;">
+        <div class="abs center" style="top:490px;left:640px;width:105px;">
             {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '-' }}
         </div>
 
         <!-- NET OF VAT -->
-        <div class="abs center" style="top:505px;left:640px;width:105px;">
+        <div class="abs center" style="top:515px;left:640px;width:105px;">
             @if ($hasVatPH == true || $hasVatExempt == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
@@ -217,7 +217,7 @@ body{
         </div>
 
         <!-- ADD VAT -->
-        <div class="abs center" style="top:527px;left:640px;width:105px;">
+        <div class="abs center" style="top:537px;left:640px;width:105px;">
             @if ($hasVatPH == true)
                 {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '' }}
             @else
@@ -226,12 +226,12 @@ body{
         </div>
 
         <!-- WITHHOLDING TAX -->
-        <div class="abs center" style="top:550px;left:640px;width:105px;">
+        <div class="abs center" style="top:560px;left:640px;width:105px;">
             {{ !empty($lessWithholdingTax) ? number_format($lessWithholdingTax, 2) : '' }}
         </div>
 
         <!-- TOTAL DUE -->
-        <div class="abs center bold" style="top:577px;left:640px;width:105px;font-size:14px;">
+        <div class="abs center bold" style="top:587px;left:640px;width:105px;font-size:14px;">
             {{ !empty($totalAmountDue) ? number_format($totalAmountDue, 2) : '' }}
         </div>
 
