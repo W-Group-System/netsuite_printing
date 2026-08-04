@@ -159,7 +159,7 @@ body{
         </div>
         
         <!-- VATABLE SALES -->
-        <div class="abs center" style="top:490px;left:100px;width:230px;">
+        <div class="abs center" style="top:485px;left:100px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
@@ -168,7 +168,7 @@ body{
         </div>
 
         <!-- VAT -->
-        <div class="abs center" style="top:515px;left:100px;width:230px;">
+        <div class="abs center" style="top:510px;left:100px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '-' }}
             @else
@@ -203,12 +203,12 @@ body{
         </div>
 
         <!-- LESS VAT -->
-        <div class="abs center" style="top:490px;left:640px;width:105px;">
+        <div class="abs center" style="top:485px;left:640px;width:105px;">
             {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '-' }}
         </div>
 
         <!-- NET OF VAT -->
-        <div class="abs center" style="top:515px;left:640px;width:105px;">
+        <div class="abs center" style="top:510px;left:640px;width:105px;">
             @if ($hasVatPH == true || $hasVatExempt == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
