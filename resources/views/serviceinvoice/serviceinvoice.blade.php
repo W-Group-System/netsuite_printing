@@ -54,37 +54,37 @@ body{
 <div class="page">
     <div class="container">
         <!-- CUSTOMER NAME -->
-        <div class="abs" style="top:118px;left:79px;width:300px;">
+        <div class="abs" style="top:116px;left:79px;width:300px;">
             {{ $customer['altName'] ?? '' }}
         </div>
 
         <!-- ATTENTION -->
-        <div class="abs center" style="top:118px;left:420px;width:150px;">
+        <div class="abs center" style="top:116px;left:420px;width:150px;">
             {{-- {{ $details['attention'] ?? '' }} --}} 
         </div>
 
         <!-- ISSUE DATE -->
-        <div class="abs left" style="top:118px;left:685px;width:95px;">
+        <div class="abs left" style="top:116px;left:685px;width:95px;">
                 {{ $details['tranDate'] ?? '' }}
         </div>
 
         <!-- TIN -->
-        <div class="abs" style="top:142px;left:79px;width:300px;">
+        <div class="abs" style="top:140px;left:79px;width:300px;">
             {{ $customer['vatRegNumber'] ?? '' }} 
         </div>
 
         <!-- DESIGNATION -->
-        <div class="abs center" style="top:142px;left:420px;width:150px;">
+        <div class="abs center" style="top:140px;left:420px;width:150px;">
             {{-- {{ $details['designation'] ?? '' }} --}} 
         </div>
 
         <!-- DUE DATE -->
-        <div class="abs left" style="top:142px;left:685px;width:95px;">
+        <div class="abs left" style="top:140px;left:685px;width:95px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
         <!-- ADDRESS -->
-        <div class="abs" style="top:165px;left:79px;width:520px;line-height:18px">
+        <div class="abs" style="top:163px;left:79px;width:520px;line-height:18px">
             {{ $customer['defaultAddress'] ?? '' }}
         </div>
 
@@ -197,17 +197,17 @@ body{
 
 
         <!-- TOTAL SALES -->
-        <div class="abs center" style="top:454px;left:630px;width:105px;border-right:1px solid black">
+        <div class="abs center" style="top:454px;left:635px;width:105px;border-right:1px solid black">
             {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '' }}
         </div>
 
         <!-- LESS VAT -->
-        <div class="abs center" style="top:480px;left:640px;width:105px;">
+        <div class="abs center" style="top:480px;left:635px;width:105px;">
             {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '-' }}
         </div>
 
         <!-- NET OF VAT -->
-        <div class="abs center" style="top:505px;left:640px;width:105px;">
+        <div class="abs center" style="top:505px;left:635px;width:105px;">
             @if ($hasVatPH == true || $hasVatExempt == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
@@ -216,7 +216,7 @@ body{
         </div>
 
         <!-- ADD VAT -->
-        <div class="abs center" style="top:527px;left:640px;width:105px;">
+        <div class="abs center" style="top:527px;left:635px;width:105px;">
             @if ($hasVatPH == true)
                 {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '' }}
             @else
@@ -225,12 +225,12 @@ body{
         </div>
 
         <!-- WITHHOLDING TAX -->
-        <div class="abs center" style="top:550px;left:640px;width:105px;">
+        <div class="abs center" style="top:560px;left:635px;width:105px;">
             {{ !empty($lessWithholdingTax) ? number_format($lessWithholdingTax, 2) : '' }}
         </div>
 
         <!-- TOTAL DUE -->
-        <div class="abs center bold" style="top:577px;left:640px;width:105px;font-size:14px;">
+        <div class="abs center bold" style="top:580px;left:635px;width:105px;font-size:14px;">
             {{ !empty($totalAmountDue) ? number_format($totalAmountDue, 2) : '' }}
         </div>
 
