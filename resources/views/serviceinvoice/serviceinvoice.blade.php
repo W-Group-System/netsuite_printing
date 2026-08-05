@@ -54,32 +54,32 @@ body{
 <div class="page">
     <div class="container">
         <!-- CUSTOMER NAME -->
-        <div class="abs" style="top:123px;left:79px;width:300px;">
+        <div class="abs" style="top:118px;left:79px;width:300px;">
             {{ $customer['altName'] ?? '' }}
         </div>
 
         <!-- ATTENTION -->
-        <div class="abs center" style="top:123px;left:420px;width:150px;">
+        <div class="abs center" style="top:118px;left:420px;width:150px;">
             {{-- {{ $details['attention'] ?? '' }} --}} 
         </div>
 
         <!-- ISSUE DATE -->
-        <div class="abs left" style="top:123px;left:685px;width:95px;">
+        <div class="abs left" style="top:118px;left:685px;width:95px;">
                 {{ $details['tranDate'] ?? '' }}
         </div>
 
         <!-- TIN -->
-        <div class="abs" style="top:143px;left:79px;width:300px;">
+        <div class="abs" style="top:142px;left:79px;width:300px;">
             {{ $customer['vatRegNumber'] ?? '' }} 
         </div>
 
         <!-- DESIGNATION -->
-        <div class="abs center" style="top:143px;left:420px;width:150px;">
+        <div class="abs center" style="top:142px;left:420px;width:150px;">
             {{-- {{ $details['designation'] ?? '' }} --}} 
         </div>
 
         <!-- DUE DATE -->
-        <div class="abs left" style="top:143px;left:685px;width:95px;">
+        <div class="abs left" style="top:142px;left:685px;width:95px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
@@ -135,7 +135,7 @@ body{
 
                 @break($loop->index >= 8)
                <div class="abs desc"
-                    style="top:{{$currentTop}}px;left:65px;width:460px;
+                    style="top:{{$currentTop}}px;left:64px;width:461px;
                             line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }}; border-right:1px solid black">
                     {{ $item['description'] }}
                 </div>
@@ -146,7 +146,7 @@ body{
                 </div>
 
                 <div class="abs center"
-                    style="top:{{$currentTop}}px;left:626px;width:110px;border-right:1px solid black">
+                    style="top:{{$currentTop}}px;left:626px;width:112px;border-right:1px solid black">
                     {{ number_format($item['grossAmt'],2) }}
                 </div>
 
