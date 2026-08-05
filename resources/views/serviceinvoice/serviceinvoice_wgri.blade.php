@@ -55,37 +55,37 @@ body{
 <div class="page">
     <div class="container">
         <!-- CUSTOMER NAME -->
-        <div class="abs" style="top:120px;left:79px;width:300px;">
+        <div class="abs" style="top:117px;left:79px;width:300px;">
             {{ $customer['altName'] ?? '' }}
         </div>
 
         <!-- ATTENTION -->
-        <div class="abs center" style="top:120px;left:420px;width:150px;">
+        <div class="abs center" style="top:117px;left:420px;width:150px;">
             {{-- {{ $details['attention'] ?? '' }} --}} 
         </div>
 
         <!-- ISSUE DATE -->
-        <div class="abs left" style="top:120px;left:685px;width:95px;">
+        <div class="abs left" style="top:117px;left:685px;width:95px;">
                 {{ $details['tranDate'] ?? '' }}
         </div>
 
         <!-- TIN -->
-        <div class="abs" style="top:146px;left:79px;width:300px;">
+        <div class="abs" style="top:143px;left:79px;width:300px;">
             {{ $customer['vatRegNumber'] ?? '' }} 
         </div>
 
         <!-- DESIGNATION -->
-        <div class="abs center" style="top:148px;left:420px;width:150px;">
+        <div class="abs center" style="top:143px;left:420px;width:150px;">
             {{-- {{ $details['designation'] ?? '' }} --}} 
         </div>
 
         <!-- DUE DATE -->
-        <div class="abs left" style="top:146px;left:685px;width:95px;">
+        <div class="abs left" style="top:143px;left:685px;width:95px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
         <!-- ADDRESS -->
-        <div class="abs" style="top:172px;left:79px;width:520px;line-height:18px">
+        <div class="abs" style="top:169px;left:79px;width:520px;line-height:18px">
             {{ $customer['defaultAddress'] ?? '' }}
         </div>
 
