@@ -158,7 +158,7 @@ body{
         </div>
         
         <!-- VATABLE SALES -->
-        <div class="abs center" style="top:480px;left:80px;width:230px;border-right:1px solid black">
+        <div class="abs center" style="top:480px;left:80px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
@@ -167,7 +167,7 @@ body{
         </div>
 
         <!-- VAT -->
-        <div class="abs center" style="top:505px;left:100px;width:230px;">
+        <div class="abs center" style="top:505px;left:80px;width:230px;">
             @if ($hasVatPH == true)
                 {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '-' }}
             @else
@@ -176,7 +176,7 @@ body{
         </div>
 
         <!-- ZERO RATED -->
-        <div class="abs center" style="top:527px;left:100px;width:230px;">
+        <div class="abs center" style="top:527px;left:80px;width:230px;">
             @if ($hasZeroRate == true)
                 {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '-' }}
             @else
@@ -185,7 +185,7 @@ body{
         </div>
 
         <!-- VAT EXEMPT -->
-        <div class="abs center" style="top:550px;left:100px;width:230px;">
+        <div class="abs center" style="top:550px;left:80px;width:230px;">
             @if ($hasVatExempt == true)
                 {{ !empty($totalAmountDue) ? number_format($totalAmountDue, 2) : '-' }}
             @else
@@ -197,7 +197,7 @@ body{
 
 
         <!-- TOTAL SALES -->
-        <div class="abs center" style="top:454px;left:620px;width:105px;">
+        <div class="abs center" style="top:454px;left:630px;width:105px;border-right:1px solid black">
             {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '' }}
         </div>
 
