@@ -197,7 +197,7 @@ body{
 
 
         <!-- TOTAL SALES -->
-        <div class="abs center" style="top:454px;left:635px;width:105px;border-right:1px solid black">
+        <div class="abs center" style="top:454px;left:635px;width:105px;">
             {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '' }}
         </div>
 
@@ -216,7 +216,7 @@ body{
         </div>
 
         <!-- ADD VAT -->
-        <div class="abs center" style="top:527px;left:635px;width:105px;">
+        <div class="abs center" style="top:530px;left:635px;width:105px;">
             @if ($hasVatPH == true)
                 {{ !empty($lessAddVat) ? number_format($lessAddVat, 2) : '' }}
             @else
@@ -225,7 +225,7 @@ body{
         </div>
 
         <!-- WITHHOLDING TAX -->
-        <div class="abs center" style="top:560px;left:635px;width:105px;">
+        <div class="abs center" style="top:557px;left:635px;width:105px;">
             {{ !empty($lessWithholdingTax) ? number_format($lessWithholdingTax, 2) : '' }}
         </div>
 
@@ -238,7 +238,7 @@ body{
 
         {{-- EWT SUMMARY --}}
         @php
-            $ewtTop = 635;
+            $ewtTop = 638;
         @endphp
 
         @php
@@ -267,16 +267,16 @@ body{
             {{ $ewt2 != 0 ? number_format(abs($ewt2), 2) : '-' }}
         </div>
 
-         <div class="abs left" style="top:658px;left:100px;width:200px;">
+         <div class="abs left" style="top:660px;left:100px;width:200px;">
             {{ $details['subsidiary']['refName'] ?? '' }}
         </div>
-        <div class="abs center" style="top:690px;left:100px;width:130px;">
+        <div class="abs center" style="top:692px;left:100px;width:130px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
 
         <!-- PREPARED BY -->
-        <div class="abs left" style="top:818px;left:60px;width:250px;">
+        <div class="abs left" style="top:820px;left:60px;width:250px;">
             {{-- {{ $details['preparedBy'] ?? '' }} --}}
             @if (( $details['subsidiary']['refName'] == "W Offices Inc" ) || ( $details['subsidiary']['refName'] == "Ticino Holdings Inc" ) || ( $details['subsidiary']['refName'] == "Hyopan Land Philippines Inc" ) || ( $details['subsidiary']['refName'] == "W Global Realty Inc" ))
                 JSC / JAC
