@@ -135,7 +135,7 @@ body{
 
                 @break($loop->index >= 8)
                <div class="abs desc"
-                    style="top:{{$currentTop}}px;left:80px;width:450px;
+                    style="top:{{$currentTop}}px;left:75px;width:450px;
                             line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }}; border-right:1px solid black">
                     {{ $item['description'] }}
                 </div>
