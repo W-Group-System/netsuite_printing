@@ -54,32 +54,32 @@ body{
 <div class="page">
     <div class="container">
         <!-- CUSTOMER NAME -->
-        <div class="abs" style="top:113px;left:79px;width:300px;">
+        <div class="abs" style="top:123px;left:79px;width:300px;">
             {{ $customer['altName'] ?? '' }}
         </div>
 
         <!-- ATTENTION -->
-        <div class="abs center" style="top:113px;left:420px;width:150px;">
+        <div class="abs center" style="top:123px;left:420px;width:150px;">
             {{-- {{ $details['attention'] ?? '' }} --}} 
         </div>
 
         <!-- ISSUE DATE -->
-        <div class="abs left" style="top:113px;left:685px;width:95px;">
+        <div class="abs left" style="top:123px;left:685px;width:95px;">
                 {{ $details['tranDate'] ?? '' }}
         </div>
 
         <!-- TIN -->
-        <div class="abs" style="top:133px;left:79px;width:300px;">
+        <div class="abs" style="top:143px;left:79px;width:300px;">
             {{ $customer['vatRegNumber'] ?? '' }} 
         </div>
 
         <!-- DESIGNATION -->
-        <div class="abs center" style="top:133px;left:420px;width:150px;">
+        <div class="abs center" style="top:143px;left:420px;width:150px;">
             {{-- {{ $details['designation'] ?? '' }} --}} 
         </div>
 
         <!-- DUE DATE -->
-        <div class="abs left" style="top:133px;left:685px;width:95px;">
+        <div class="abs left" style="top:143px;left:685px;width:95px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
@@ -135,7 +135,7 @@ body{
 
                 @break($loop->index >= 8)
                <div class="abs desc"
-                    style="top:{{$currentTop}}px;left:65px;width:450px;
+                    style="top:{{$currentTop}}px;left:65px;width:460px;
                             line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }}; border-right:1px solid black">
                     {{ $item['description'] }}
                 </div>
