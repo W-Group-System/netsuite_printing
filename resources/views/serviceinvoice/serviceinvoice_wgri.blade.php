@@ -85,7 +85,7 @@ body{
         </div>
 
         <!-- ADDRESS -->
-        <div class="abs" style="top:169px;left:79px;width:520px;line-height:18px">
+        <div class="abs" style="top:167px;left:79px;width:520px;line-height:18px">
             {{ $customer['defaultAddress'] ?? '' }}
         </div>
 

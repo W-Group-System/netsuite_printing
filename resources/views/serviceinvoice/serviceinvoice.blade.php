@@ -16,6 +16,7 @@ body{
 }
 
 .page{
+    margin-top: 20px;
     position:relative;
     width:210mm;
     height:297mm;
