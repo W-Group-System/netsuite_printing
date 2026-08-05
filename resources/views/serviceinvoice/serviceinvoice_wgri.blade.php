@@ -65,7 +65,7 @@ body{
         </div>
 
         <!-- ISSUE DATE -->
-        <div class="abs left" style="top:117px;left:685px;width:95px;">
+        <div class="abs left" style="top:115px;left:685px;width:95px;">
                 {{ $details['tranDate'] ?? '' }}
         </div>
 
@@ -80,7 +80,7 @@ body{
         </div>
 
         <!-- DUE DATE -->
-        <div class="abs left" style="top:143px;left:685px;width:95px;">
+        <div class="abs left" style="top:140px;left:685px;width:95px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
@@ -269,15 +269,15 @@ body{
         </div>
 
          <div class="abs left" style="top:658px;left:100px;width:200px;">
-            {{ $details['subsidiary']['refName'] ?? '' }}
+            {{-- {{ $details['subsidiary']['refName'] ?? '' }} --}}
         </div>
-        <div class="abs center" style="top:690px;left:100px;width:130px;">
+        <div class="abs center" style="top:700px;left:100px;width:130px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
 
         <!-- PREPARED BY -->
-        <div class="abs left" style="top:818px;left:60px;width:250px;">
+        <div class="abs left" style="top:825px;left:60px;width:250px;">
             {{-- {{ $details['preparedBy'] ?? '' }} --}}
             @if (( $details['subsidiary']['refName'] == "W Offices Inc" ) || ( $details['subsidiary']['refName'] == "Ticino Holdings Inc" ) || ( $details['subsidiary']['refName'] == "Hyopan Land Philippines Inc" ) || ( $details['subsidiary']['refName'] == "W Global Realty Inc" ))
                 JSC / JAC
