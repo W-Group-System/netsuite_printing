@@ -65,7 +65,7 @@ body{
         </div>
 
         <!-- ISSUE DATE -->
-        <div class="abs left" style="top:116px;left:685px;width:95px;">
+        <div class="abs left" style="top:116px;left:683px;width:95px;">
                 {{ $details['tranDate'] ?? '' }}
         </div>
 
@@ -80,7 +80,7 @@ body{
         </div>
 
         <!-- DUE DATE -->
-        <div class="abs left" style="top:140px;left:685px;width:95px;">
+        <div class="abs left" style="top:140px;left:683px;width:95px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
