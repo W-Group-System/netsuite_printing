@@ -91,6 +91,8 @@ class ServiceInvoiceController extends Controller
 
         if ($refName === 'W Global Realty Inc') {
             $view = 'serviceinvoice.serviceinvoice_wgri';
+        } elseif ($refName === 'W Offices Inc') {
+            $view = 'serviceinvoice.serviceinvoice_woi';
         } elseif (in_array($refName, ['Ticino Holdings Inc', 'W Offices Inc'])) {
             $view = 'serviceinvoice.serviceinvoice';
         } else {
