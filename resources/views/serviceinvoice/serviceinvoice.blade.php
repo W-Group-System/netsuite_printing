@@ -225,7 +225,7 @@ body{
         </div>
 
         <!-- WITHHOLDING TAX -->
-        <div class="abs center" style="top:557px;left:635px;width:105px;">
+        <div class="abs center" style="top:555px;left:635px;width:105px;">
             {{ !empty($lessWithholdingTax) ? number_format($lessWithholdingTax, 2) : '' }}
         </div>
 
