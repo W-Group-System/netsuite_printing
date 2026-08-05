@@ -84,7 +84,7 @@ body{
         </div>
 
         <!-- ADDRESS -->
-        <div class="abs" style="top:162px;left:79px;width:520px;line-height:18px">
+        <div class="abs" style="top:165px;left:79px;width:520px;line-height:18px">
             {{ $customer['defaultAddress'] ?? '' }}
         </div>
 
@@ -136,17 +136,17 @@ body{
                 @break($loop->index >= 8)
                <div class="abs desc"
                     style="top:{{$currentTop}}px;left:64px;width:461px;
-                            line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }}; border-right:1px solid black">
+                            line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }};">
                     {{ $item['description'] }}
                 </div>
 
                 <div class="abs center"
-                    style="top:{{$currentTop}}px;left:521px;width:103px; border-right:1px solid black">
+                    style="top:{{$currentTop}}px;left:521px;width:103px;">
                     {{ number_format($item['rate'],2) }}
                 </div>
 
                 <div class="abs center"
-                    style="top:{{$currentTop}}px;left:626px;width:112px;border-right:1px solid black">
+                    style="top:{{$currentTop}}px;left:626px;width:112px;">
                     {{ number_format($item['grossAmt'],2) }}
                 </div>
 
@@ -158,7 +158,7 @@ body{
         </div>
         
         <!-- VATABLE SALES -->
-        <div class="abs center" style="top:480px;left:100px;width:230px;">
+        <div class="abs center" style="top:480px;left:80px;width:230px;border-right:1px solid black">
             @if ($hasVatPH == true)
                 {{ !empty($netOfVat) ? number_format($netOfVat, 2) : '-' }}
             @else
@@ -197,7 +197,7 @@ body{
 
 
         <!-- TOTAL SALES -->
-        <div class="abs center" style="top:454px;left:640px;width:105px;">
+        <div class="abs center" style="top:454px;left:620px;width:105px;">
             {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '' }}
         </div>
 
