@@ -135,18 +135,18 @@ body{
 
                 @break($loop->index >= 8)
                <div class="abs desc"
-                    style="top:{{$currentTop}}px;left:75px;width:450px;
+                    style="top:{{$currentTop}}px;left:65px;width:450px;
                             line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }}; border-right:1px solid black">
                     {{ $item['description'] }}
                 </div>
 
                 <div class="abs center"
-                    style="top:{{$currentTop}}px;left:531px;width:103px; border-right:1px solid black">
+                    style="top:{{$currentTop}}px;left:521px;width:103px; border-right:1px solid black">
                     {{ number_format($item['rate'],2) }}
                 </div>
 
                 <div class="abs center"
-                    style="top:{{$currentTop}}px;left:636px;width:110px;border-right:1px solid black">
+                    style="top:{{$currentTop}}px;left:626px;width:110px;border-right:1px solid black">
                     {{ number_format($item['grossAmt'],2) }}
                 </div>
 
