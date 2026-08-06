@@ -239,7 +239,7 @@ body{
 
         {{-- EWT SUMMARY --}}
         @php
-            $ewtTop = 639;
+            $ewtTop = 642;
         @endphp
 
         @php
