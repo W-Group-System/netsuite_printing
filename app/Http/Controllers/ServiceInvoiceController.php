@@ -95,7 +95,9 @@ class ServiceInvoiceController extends Controller
             $view = 'serviceinvoice.serviceinvoice_woi';
         } elseif ($refName === 'Ticino Holdings Inc') {
             $view = 'serviceinvoice.serviceinvoice';
-        } else {
+        } elseif ($refName === 'W Tower Condominium Corporation') {
+            $view = 'serviceinvoice.serviceinvoice_wtcc';
+        }   else {
             $view = 'serviceinvoice.general_service_invoice';
         }
         $pdf = PDF::loadView($view, [
