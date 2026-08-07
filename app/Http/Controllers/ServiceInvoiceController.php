@@ -110,4 +110,52 @@ class ServiceInvoiceController extends Controller
 
     }
 
+    function print_service_invoice_ar(Request $request, $id)
+    {
+        $results = [];
+
+        $results = $this->netsuite->getServiceInvoiceRecord($id);
+        $itemList = $this->netsuite->getServiceInvoiceItems($id);
+        $items = [];
+        $customer = null;
+
+        if (!empty($results['entity']['id'])) {
+            $customer = $this->netsuite->getCustomerRecord($results['entity']['id']);
+        }
+        foreach ($itemList['items'] as $index => $item) {
+            // $items[] = $this->netsuite->getServiceInvoiceItem($id, $index + 1);
+            $href = $item['links'][0]['href'];
+            $lineId = basename(parse_url($href, PHP_URL_PATH));
+
+            $items[] = $this->netsuite->getServiceInvoiceItem($id, $lineId);
+        }
+        // dd($customer);
+        // dd($results);
+        // dd($items);
+
+        $refName = $customer['subsidiary']['refName'] ?? '';
+
+        if ($refName === 'W Global Realty Inc' || $refName === 'W Global Realty Inc.') {
+            $view = 'serviceinvoiceAr.serviceinvoice_wgri';
+        } elseif ($refName === 'W Offices Inc' || $refName === 'W Offices Inc.') {
+            $view = 'serviceinvoiceAr.serviceinvoice_woi';
+        } elseif ($refName === 'Ticino Holdings Inc' || $refName === 'Ticino Holdings Inc.') {
+            $view = 'serviceinvoiceAr.serviceinvoice';
+        } elseif ($refName === 'W Tower Condominium Corporation') {
+            $view = 'serviceinvoiceAr.serviceinvoice_wtcc';
+        } elseif ($refName === 'W Landmark Inc' || $refName === 'W Landmark Inc.') {
+            $view = 'serviceinvoiceAr.serviceinvoice_wli';
+        } else {
+            $view = 'serviceinvoiceAr.general_service_invoice';
+        }
+        $pdf = PDF::loadView($view, [
+            'details' => $results,
+            'customer' => $customer,
+            'items' => $items,
+        ])->setPaper('A4', 'portrait');
+    
+        return $pdf->stream('service_invoice_ar.pdf');
+
+    }
+
 }

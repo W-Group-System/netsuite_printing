@@ -88,6 +88,11 @@
                               onclick="window.open('{{ url('print_service_invoice', $result['id']) }}', '_blank')">
                               <i class="ti-printer"></i>
                           </button>
+                          <button type="button"
+                              class="btn btn-md btn-icon btn-warning"
+                              onclick="window.open('{{ url('print_service_invoice_ar', $result['id']) }}', '_blank')">
+                              <i class="ti-receipt"></i>
+                          </button>
                           {{-- @include('netsuite.new_ap') --}}
                       @endif
                       

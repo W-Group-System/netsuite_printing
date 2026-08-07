@@ -20,6 +20,7 @@ Route::put('/update_ap_voucher/{id}', 'NetSuiteController@update_ap');
 
 Route::get('/service_invoice', 'ServiceInvoiceController@index');
 Route::get('/print_service_invoice/{id}', 'ServiceInvoiceController@print_service_invoice');
+Route::get('/print_service_invoice_ar/{id}', 'ServiceInvoiceController@print_service_invoice_ar');
 
 
 
