@@ -275,7 +275,7 @@ body{
             @else
             @endif
         </div>
-        <div class="abs center" style="top:662px;left:100px;width:130px;">
+        <div class="abs center" style="top:665px;left:100px;width:130px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
