@@ -55,7 +55,7 @@ body{
 <div class="page">
     <div class="container">
         <!-- CUSTOMER NAME -->
-        <div class="abs" style="top:116px;left:79px;width:300px;">
+        <div class="abs" style="top:116px;left:82px;width:300px;">
             {{ $customer['altName'] ?? '' }}
         </div>
 
@@ -65,12 +65,12 @@ body{
         </div>
 
         <!-- ISSUE DATE -->
-        <div class="abs left" style="top:115px;left:665px;width:95px;">
+        <div class="abs left" style="top:115px;left:668px;width:95px;">
                 {{ $details['tranDate'] ?? '' }}
         </div>
 
         <!-- TIN -->
-        <div class="abs" style="top:140px;left:79px;width:300px;">
+        <div class="abs" style="top:140px;left:82px;width:300px;">
             {{ $customer['vatRegNumber'] ?? '' }} 
         </div>
 
@@ -80,12 +80,12 @@ body{
         </div>
 
         <!-- DUE DATE -->
-        <div class="abs left" style="top:139px;left:665px;width:95px;">
+        <div class="abs left" style="top:139px;left:668px;width:95px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
         <!-- ADDRESS -->
-        <div class="abs" style="top:163px;left:79px;width:520px;line-height:18px">
+        <div class="abs" style="top:163px;left:82px;width:520px;line-height:18px">
             {{ $customer['defaultAddress'] ?? '' }}
         </div>
 
@@ -275,7 +275,7 @@ body{
             @else
             @endif
         </div>
-        <div class="abs center" style="top:660px;left:100px;width:130px;">
+        <div class="abs center" style="top:662px;left:100px;width:130px;">
             {{ $details['dueDate'] ?? '' }} 
         </div>
 
