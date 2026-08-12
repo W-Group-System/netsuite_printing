@@ -16,7 +16,7 @@ body{
 }
 
 .page{
-    margin-top: 32px;
+    margin-top: 28px;
     position:relative;
     width:210mm;
     height:277mm;
@@ -94,7 +94,8 @@ body{
         {{-- ITEMS --}}
         <div class="items-container">
             @php
-                $top = 245;
+                // $top = 245;
+                $top = 242;
                 $vatInclusive = 0;
                 $lessAddVat = 0;
                 $netOfVat = 0;
@@ -114,14 +115,23 @@ body{
                     $lessWithholdingTax += (float) ($item['custcol_4601_witaxamount'] ?? 0);
                     $totalAmountDue = $vatInclusive - $lessWithholdingTax;
 
-                    $description = $item['description'];
-                    $currentTop = strlen($description) > 85 ? $top - 4 : $top;
+                    // $description = $item['description'];
+                    // $currentTop = strlen($description) > 85 ? $top - 4 : $top;
 
-                    $wrapped = wordwrap(strip_tags($description), 85, "\n");
-                    $lines = substr_count($wrapped, "\n") + 0;
+                    // $wrapped = wordwrap(strip_tags($description), 85, "\n");
+                    // $lines = substr_count($wrapped, "\n") + 0;
 
-                    $rowHeight = max(25, $lines * 20);
-                    $lineHeight = strlen($description) > 94 ? '10px' : 'normal';
+                    // $rowHeight = max(25, $lines * 20);
+                    // $lineHeight = strlen($description) > 94 ? '10px' : 'normal';
+                    $description = strip_tags($item['description'] ?? '');
+
+                    $wrapped = wordwrap($description, 90, "\n");
+                    $lines = max(1, substr_count($wrapped, "\n") + 1);
+
+                    // Your template has space for 2 lines per box.
+                    // Every additional 2 lines moves to another box height.
+                    $boxHeight = 23;
+                    $rowHeight = ceil($lines / 2) * $boxHeight;
 
                     if (($item['taxCode']['refName'] ?? '') === 'VAT_PH:S-PH') {
                         $hasVatPH = true;
@@ -135,8 +145,8 @@ body{
                 @endphp
 
                 @break($loop->index >= 8)
-               <div class="abs desc"
-                    style="top:{{$currentTop}}px;left:62px;width:461px;
+               {{-- <div class="abs desc"
+                    style="top:{{$top}}px;left:62px;width:461px;
                             line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }}; ">
                     {{ $item['description'] }}
                 </div>
@@ -148,6 +158,33 @@ body{
 
                 <div class="abs center"
                     style="top:{{$currentTop}}px;left:624px;width:114px;">
+                    {{ number_format($item['grossAmt'],2) }}
+                </div> --}}
+                <div class="abs desc"
+                    style="
+                        top:{{$top}}px;
+                        left:62px;
+                        width:461px;
+                        line-height:12px;
+                    ">
+                    {{ $description }}
+                </div>
+
+                <div class="abs center"
+                    style="
+                        top:{{$top}}px;
+                        left:519px;
+                        width:101px;
+                    ">
+                    {{ number_format($item['rate'],2) }}
+                </div>
+
+                <div class="abs center"
+                    style="
+                        top:{{$top}}px;
+                        left:624px;
+                        width:114px;
+                    ">
                     {{ number_format($item['grossAmt'],2) }}
                 </div>
 
@@ -198,7 +235,7 @@ body{
 
 
         <!-- TOTAL SALES -->
-        <div class="abs center" style="top:435px;left:626px;width:105px;">
+        <div class="abs center" style="top:437px;left:626px;width:105px;">
             {{ !empty($vatInclusive) ? number_format($vatInclusive, 2) : '' }}
         </div>
 
