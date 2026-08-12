@@ -135,7 +135,7 @@ class ServiceInvoiceController extends Controller
 
         $refName = $customer['subsidiary']['refName'] ?? '';
 
-        if ($refName === 'W Global Realty Inc' || $refName === 'W Global Realty Inc.') {
+        if ($refName === 'W Global Realty Inc' || $refName === 'W Global Realty Inc.' || $refName === 'W Fifth Avenue, Inc.' || $refName === 'W Fifth Avenue, Inc') {
             $view = 'serviceinvoiceAr.serviceinvoice_wgri';
         } elseif ($refName === 'W Offices Inc' || $refName === 'W Offices Inc.') {
             $view = 'serviceinvoiceAr.serviceinvoice_woi';
