@@ -83,11 +83,11 @@
                                   data-target="#create_ap{{ $result['id'] }}">
                               <i class="ti-pencil-alt"></i>
                           </button> --}}
-                          <button type="button"
+                          {{-- <button type="button"
                               class="btn btn-md btn-icon btn-danger"
                               onclick="window.open('{{ url('print_service_invoice', $result['id']) }}', '_blank')">
                               <i class="ti-printer"></i>
-                          </button>
+                          </button> --}}
                           <button type="button"
                               class="btn btn-md btn-icon btn-warning"
                               onclick="window.open('{{ url('print_service_invoice_ar', $result['id']) }}', '_blank')">

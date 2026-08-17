@@ -105,13 +105,52 @@ body{
                 $hasZeroRate = false;
                 $hasVatExempt = false;
 
-                
+                $interestPenaltyItems = collect($items ?? [])->filter(function ($item) {
+                    $description = trim(strip_tags($item['description'] ?? ''));
+
+                    return stripos($description, 'interest and penalties') === 0;
+                });
+
+                $interestPenaltyRate = $interestPenaltyItems->sum(function ($item) {
+                    return (float) ($item['rate'] ?? 0);
+                });
+
+                $interestPenaltyAmount = $interestPenaltyItems->sum(function ($item) {
+                    return (float) ($item['grossAmt'] ?? 0);
+                });
+
+                $interestPenaltyMemo = $details['memo'] ?? 'Interest and Penalties';
+
+                $interestPenaltyShown = false;
+
             @endphp
             @foreach($items ?? [] as $item)
                 @php
-                    $vatInclusive += $item['grossAmt'];
+                    $description = strip_tags($item['description'] ?? '');
+
+                    $isInterestPenalty = stripos(
+                        $description,
+                        'interest and penalties'
+                    ) === 0;
+
+                    if ($isInterestPenalty) {
+                        if ($interestPenaltyShown) {
+                            continue;
+                        }
+
+                        $interestPenaltyShown = true;
+
+                        $description = $interestPenaltyMemo;
+                        $rate = $interestPenaltyRate;
+                        $grossAmt = $interestPenaltyAmount;
+                    } else {
+                        $rate = (float) ($item['rate'] ?? 0);
+                        $grossAmt = (float) ($item['grossAmt'] ?? 0);
+                    }
+
+                    $vatInclusive += $grossAmt;
                     $lessAddVat += $item['tax1Amt'];
-                    $netOfVat += $item['rate'];
+                    $netOfVat += $rate;
                     $lessWithholdingTax += (float) ($item['custcol_4601_witaxamount'] ?? 0);
                     $totalAmountDue = $vatInclusive - $lessWithholdingTax;
 
@@ -123,13 +162,10 @@ body{
 
                     // $rowHeight = max(25, $lines * 20);
                     // $lineHeight = strlen($description) > 94 ? '10px' : 'normal';
-                    $description = strip_tags($item['description'] ?? '');
 
                     $wrapped = wordwrap($description, 90, "\n");
                     $lines = max(1, substr_count($wrapped, "\n") + 1);
 
-                    // Your template has space for 2 lines per box.
-                    // Every additional 2 lines moves to another box height.
                     $boxHeight = 23;
                     $rowHeight = ceil($lines / 2) * $boxHeight;
 
@@ -144,7 +180,8 @@ body{
                     }
                 @endphp
 
-                @break($loop->index >= 8)
+                {{-- @break($loop->index >= 8) --}}
+
                {{-- <div class="abs desc"
                     style="top:{{$top}}px;left:62px;width:461px;
                             line-height:{{ strlen($description) > 70 ? '12px' : 'normal' }}; ">
@@ -176,7 +213,7 @@ body{
                         left:519px;
                         width:101px;
                     ">
-                    {{ number_format($item['rate'],2) }}
+                    {{ number_format($rate, 2) }}
                 </div>
 
                 <div class="abs center"
@@ -185,7 +222,7 @@ body{
                         left:624px;
                         width:114px;
                     ">
-                    {{ number_format($item['grossAmt'],2) }}
+                    {{ number_format($grossAmt, 2) }}
                 </div>
 
                 @php
