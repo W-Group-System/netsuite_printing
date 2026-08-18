@@ -108,7 +108,7 @@ body{
                 $interestPenaltyItems = collect($items ?? [])->filter(function ($item) {
                     $description = trim(strip_tags($item['description'] ?? ''));
 
-                    return stripos($description, 'interest and penalties') === 0;
+                    return stripos($description, 'interest and penalt') === 0;
                 });
 
                 $interestPenaltyRate = $interestPenaltyItems->sum(function ($item) {
@@ -139,7 +139,7 @@ body{
 
                     $isInterestPenalty = stripos(
                         $description,
-                        'interest and penalties'
+                        'interest and penalt'
                     ) === 0;
 
                     if ($isInterestPenalty) {

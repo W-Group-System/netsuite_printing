@@ -108,7 +108,7 @@ body{
                 $interestPenaltyItems = collect($items ?? [])->filter(function ($item) {
                     $description = trim(strip_tags($item['description'] ?? ''));
 
-                    return stripos($description, 'interest and penalties') === 0;
+                    return stripos($description, 'interest and penalt') === 0;
                 });
 
                 $interestPenaltyRate = $interestPenaltyItems->sum(function ($item) {
@@ -126,7 +126,7 @@ body{
                     return (float) ($item['custcol_4601_witaxamount'] ?? 0);
                 });
 
-                $interestPenaltyMemo = $details['memo'] ?? 'Interest and Penalties';
+                $interestPenaltyMemo = $details['memo'] ?? 'Interest and penalt';
 
                 $interestPenaltyShown = false;
 
@@ -138,7 +138,7 @@ body{
 
                     $isInterestPenalty = stripos(
                         $description,
-                        'interest and penalties'
+                        'interest and penalt'
                     ) === 0;
 
                     if ($isInterestPenalty) {
