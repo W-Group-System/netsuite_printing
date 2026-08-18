@@ -118,6 +118,13 @@ body{
                 $interestPenaltyAmount = $interestPenaltyItems->sum(function ($item) {
                     return (float) ($item['grossAmt'] ?? 0);
                 });
+                $interestTaxAmount = $interestPenaltyItems->sum(function ($item) {
+                    return (float) ($item['tax1Amt'] ?? 0);
+                });
+
+                $interesLessWithholding = $interestPenaltyItems->sum(function ($item) {
+                    return (float) ($item['custcol_4601_witaxamount'] ?? 0);
+                });
 
                 $interestPenaltyMemo = $details['memo'] ?? 'Interest and Penalties';
 
@@ -144,15 +151,17 @@ body{
                         $description = $interestPenaltyMemo;
                         $rate = $interestPenaltyRate;
                         $grossAmt = $interestPenaltyAmount;
+                        $lessAddVat = $interestTaxAmount;
+                        $lessWithholdingTax = $interesLessWithholding;
                     } else {
                         $rate = (float) ($item['rate'] ?? 0);
                         $grossAmt = (float) ($item['grossAmt'] ?? 0);
+                        $lessAddVat += $item['tax1Amt'];
+                        $lessWithholdingTax += (float) ($item['custcol_4601_witaxamount'] ?? 0);
                     }
 
                     $vatInclusive += $grossAmt;
-                    $lessAddVat += $item['tax1Amt'];
                     $netOfVat += $rate;
-                    $lessWithholdingTax += (float) ($item['custcol_4601_witaxamount'] ?? 0);
                     $totalAmountDue = $vatInclusive - $lessWithholdingTax;
 
                     // $description = $item['description'];
