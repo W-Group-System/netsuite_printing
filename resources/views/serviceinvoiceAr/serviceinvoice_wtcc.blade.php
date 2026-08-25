@@ -55,7 +55,7 @@ body{
 <div class="page">
     <div class="container">
         <!-- CUSTOMER NAME -->
-        <div class="abs" style="top:116px;left:81px;width:300px;">
+        <div class="abs" style="top:116px;left:84px;width:300px;">
             {{ $customer['altName'] ?? '' }}
         </div>
 
@@ -70,7 +70,7 @@ body{
         </div>
 
         <!-- TIN -->
-        <div class="abs" style="top:140px;left:81px;width:300px;">
+        <div class="abs" style="top:140px;left:84px;width:300px;">
             {{ $customer['vatRegNumber'] ?? '' }} 
         </div>
 
@@ -85,7 +85,7 @@ body{
         </div>
 
         <!-- ADDRESS -->
-        <div class="abs" style="top:163px;left:81px;width:520px;line-height:18px">
+        <div class="abs" style="top:163px;left:84px;width:520px;line-height:18px">
             {{ $customer['defaultAddress'] ?? '' }}
         </div>
 
